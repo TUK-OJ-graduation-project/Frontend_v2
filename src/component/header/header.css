@@ -179,7 +179,7 @@ Variables
   }
   .links a:hover {
     background: var(--clr-primary-8);
-    color: var(--clr-primary-5);
+    color: var(--clr-primary-7);
     padding-left: 1.5rem;
   }
   .social-icons {
@@ -257,7 +257,7 @@ Variables
   }
 
   .notice-link:hover:after {
-    transform: scaleX(1);
+    transform: scaleX(1); /* 마우스 올렸을 때 밑줄 표시 */
   }
 
   .problem-link:hover:after {
@@ -272,4 +272,27 @@ Variables
     text-decoration: underline; /* 마우스 올렸을 때 밑줄 표시 */
     text-decoration-thickness: 2px;
   }
+
+/* 헤더바 드롭다운을 보여주기 위한 스타일 */
+.problem-dropdown .problem-list {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+}
+
+.problem-dropdown:hover .problem-list {
+  display: block;
+}
+
+.problem-dropdown{
+  color: #7f88de;
+
+}
+.problem-list{
+  color: #7f88de;
+}
 
