@@ -26,17 +26,10 @@ const Container = styled.div`
 `;
 
 const Select = () => {
-  const [level, setLevel] = useState("");
   const [dataList, setDataList] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-  const [filteredData, setFilteredData] = useState([]);
-
-  const handlechangelevel = (event) => {
-    const selectedLevel = event.target.value;
-    setLevel(selectedLevel);
-  };
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -58,36 +51,44 @@ const Select = () => {
 //     }
 //   }, [level]);
 
-useEffect(() => {
+// useEffect(() => {
+//     const fetchData = async () => {
+//       let url = "http://127.0.0.1:8000/api/v1/problems/list/?type=select";
+//       if (level) {
+//         url += `&level=${level}`;
+//       }
+//       try {
+//         const response = await axios.get(url);
+//         const newDataList = response.data;
+//         setDataList(newDataList);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
+  
+//     fetchData();
+  
+//     // Reset filteredData if level is empty
+//     if (!level) {
+//       setFilteredData([]);
+//     }
+//   }, [level]);
+
+  useEffect(() => {
     const fetchData = async () => {
-      let url = "http://127.0.0.1:8000/api/v1/problems/list/?type=select";
-      if (level) {
-        url += `&level=${level}`;
-      }
+      const url = "http://127.0.0.1:8000/api/v1/problems/list/?type=select";
       try {
         const response = await axios.get(url);
-        const newDataList = response.data;
-        setDataList(newDataList);
+        setDataList(response.data);
       } catch (error) {
         console.log(error);
       }
     };
-  
-    fetchData();
-  
-    // Reset filteredData if level is empty
-    if (!level) {
-      setFilteredData([]);
-    }
-  }, [level]);
 
-  useEffect(() => {
-    let filteredList = dataList;
-    if (level) {
-      filteredList = dataList.filter((problemItem) => problemItem.type === "select" && problemItem.level === level);
-    }
-    setFilteredData(filteredList);
-  }, [dataList, level]);
+    fetchData();
+  }, []);
+
+  const filteredData = dataList.filter((problemItem) => problemItem.type === "select");
 
   const slicedData = filteredData.slice(offset, offset + limit);
 
@@ -97,22 +98,6 @@ useEffect(() => {
         <h1 style={{ color: "grey", marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
           PROBLEM LIST
         </h1>
-        <div>
-          <label style={{ borderRadius: 30 }}>
-            <select
-              style={{ textAlign: "center", width: 100, height: 30, float: "right", fontSize: 15 }}
-              value={level}
-              onChange={handlechangelevel}
-            >
-              <option value="">전체(레벨)</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </label>
-        </div>
         <div
           style={{
             background: "#000066",
@@ -122,7 +107,7 @@ useEffect(() => {
         >
           <CommonTable headersName={["ID", "문제명", "레벨"]}>
             {slicedData.map((problem) => (
-              <CommonTableRow key={problem.id} problemType={problem.type}>
+              <CommonTableRow key={problem.id}>
                 <CommonTableColumn>{problem.id}</CommonTableColumn>
                 <CommonTableColumn>{problem.title}</CommonTableColumn>
                 <CommonTableColumn>{problem.level}</CommonTableColumn>
