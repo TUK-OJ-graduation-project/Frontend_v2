@@ -5,7 +5,6 @@ import styled from "styled-components";
 import MainCommunity from "./component/community/MainCommunity";
 import PostWritePage from "./component/community/PostWritePage";
 import PostViewPage from "./component/community/PostViewPage";
-import Problemlist from "./component/problemlist/Problemlist";
 import Button from "./component/community/ui/Button";
 
 import BoardUpdate from "./component/community/BoardUpdate";
@@ -49,7 +48,6 @@ class App extends React.Component {
           <Route path="/loginhome" element={<LoginHome />} />
           <Route path="/problem/:id" element={<Editor />} />
           <Route path="/main_problem/:id" element={<Editor />} />
-          <Route path="/Problemlist" element={<Problemlist />} />
           <Route path="/oxquiz/:id" element={<QuizPage />} />
           <Route path="/shortquiz/:id" element={<ShortQuizPage />} />
           <Route path="/Manage" element={<Manage />} />

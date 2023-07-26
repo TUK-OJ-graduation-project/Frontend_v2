@@ -11,7 +11,7 @@ const Headerbar = () => {
   const [showProblemList, setShowProblemList] = useState(false);
   const linksContainerRef = useRef(null);
   const linksRef = useRef(null);
-  const [isHovering, setIsHovering] = useState(false); // 추가된 상태
+  const [isHovering, setIsHovering] = useState(false); 
 
   const toggleLinks = () => {
     setShowLinks(!showLinks);
@@ -21,12 +21,10 @@ const Headerbar = () => {
     setShowProblemList(!showProblemList);
   };
 
-  // 추가된 함수
   const handleMouseEnter = () => {
     setIsHovering(true);
   };
 
-  // 추가된 함수
   const handleMouseLeave = () => {
     setIsHovering(false);
   };
@@ -54,8 +52,8 @@ const Headerbar = () => {
         <div
           className="links-container"
           ref={linksContainerRef}
-          onMouseEnter={handleMouseEnter} // 추가된 이벤트 핸들러
-          onMouseLeave={handleMouseLeave} // 추가된 이벤트 핸들러
+          onMouseEnter={handleMouseEnter} 
+          onMouseLeave={handleMouseLeave} 
         >
           <ul className="links" ref={linksRef}>
             {links.map((link) => {
@@ -68,11 +66,18 @@ const Headerbar = () => {
                       onMouseEnter={handleProblemClick}
                       onMouseLeave={handleProblemClick}
                     >
-                      <Link to={url} className="problem-link">
+                      <a 
+                        href={url} 
+                        className="problem-link" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleProblemClick();
+                        }}
+                      >
                         {text}
-                      </Link>
+                      </a>
                       {showProblemList &&
-                        isHovering && ( // isHovering 상태 체크
+                        isHovering && (
                           <ul className="problem-list">
                             <li>
                               <Link to="/codeproblemlist" className="list-text">
