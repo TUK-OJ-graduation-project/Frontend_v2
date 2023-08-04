@@ -47,7 +47,7 @@ class App extends React.Component {
           <Route path="/" element={<Main />} />
           <Route path="/loginhome" element={<LoginHome />} />
           <Route path="/problem/:id" element={<Editor />} />
-          <Route path="/main_problem/:id" element={<Editor />} />
+          <Route path="/editor/:id" element={<Editor />} />
           <Route path="/oxquiz/:id" element={<QuizPage />} />
           <Route path="/shortquiz/:id" element={<ShortQuizPage />} />
           <Route path="/Manage" element={<Manage />} />

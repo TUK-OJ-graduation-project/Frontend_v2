@@ -17,7 +17,7 @@ function Main(props) {
   useEffect(() => {
     // setDataList(problemdata);
     axios
-      .get("http://127.0.0.1:8000/api/v1/problems/list/")
+      .get("http://localhost:8000/api/v2/problems/")
       .then(function (response) {
         // console.log(response)
         setDataList(response.data.slice(0, 5)); // 처음 5개 요소만 사용

@@ -34,7 +34,7 @@ const ProblemList = () => {
 
    useEffect(() => {
      const fetchData = async() => {
-       const url = "http://127.0.0.1:8000/api/v2/problems/";
+       const url = "http://localhost:8000/api/v2/problems/";
        try {
          const response = await axios.get(url);
          setDataList(response.data);
@@ -53,7 +53,7 @@ const ProblemList = () => {
      <Wrapper>
        <Container>
          <h1 style={{ color: "grey", marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
-           PROBLEM LIST
+           CODE-PROBLEM LIST
          </h1>
          <div
            style={{
@@ -62,7 +62,7 @@ const ProblemList = () => {
              borderRadius: 10,
            }}
          >
-           <CommonTable headersName={["Question Name", "Created At"]}>
+           <CommonTable headersName={["문제 이름", "등록일"]}>
              {slicedData.map((problem) => (
                <CommonTableRow key={problem.id}>
                  <CommonTableColumn>
