@@ -84,11 +84,12 @@ function SourceCodeInputComponent({
 }
 
 function ExecutionResultComponent({ executionResult, testCases }) {
-    return (
+  return (
+    <div className="scrollable-section">
       <div className="execution-result">
-        <h4>Execution result</h4>
+        <h4>- 채점 결과 -</h4>
         <p>{executionResult}</p>
-        <h4>Test Cases Result:</h4>
+        <h4>- Test Case 채점 기록 -</h4>
         <ul>
           {testCases.map((testCase, index) => (
             <li key={index}>
@@ -97,8 +98,10 @@ function ExecutionResultComponent({ executionResult, testCases }) {
           ))}
         </ul>
       </div>
-    );
+    </div>
+  );
 }
+
 
 function Editor() {
     const { id } = useParams();
@@ -138,11 +141,11 @@ function Editor() {
           console.log('Execution result:', response.data.result);
           alert('Source code submitted successfully!');
           if (response.data.result === "P") {
-              setExecutionResult("🎉This is the correct answer🎉");
+              setExecutionResult("🎉🎊정답입니다🎊🎉");
           } else if (response.data.result === "F") {
-              setExecutionResult("😵Wrong😵");
+              setExecutionResult("😵😿틀렸습니다😿😵");
           } else {
-              setExecutionResult("Error occurred: " + response.data.result);
+              setExecutionResult("코드 실행 중 에러발생: " + response.data.result);
           }
       })
       .catch(error => {

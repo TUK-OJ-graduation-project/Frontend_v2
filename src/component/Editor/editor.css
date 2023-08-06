@@ -59,6 +59,7 @@ margin-left: 1px;
     margin: 15px;
     padding: 15px;
     flex-basis: 50%;
+    white-space: nowrap; 
 
   }
 .execute-content{
@@ -275,4 +276,10 @@ pre{
 .button-container{
   display: flex;
   justify-content: flex-end;
+}
+
+.scrollable-section {
+  max-height: 300px; /* You can adjust this value to your liking */
+  overflow-y: auto;
+  padding: 10px;
 }
