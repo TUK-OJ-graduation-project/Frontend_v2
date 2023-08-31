@@ -145,7 +145,7 @@ function Editor() {
           } else if (response.data.result === "F") {
               setExecutionResult("😵😿틀렸습니다😿😵");
           } else {
-              setExecutionResult("코드 실행 중 에러발생: " + response.data.result);
+              setExecutionResult(response.data.grading_results.result || "Unknown Error");
           }
       })
       .catch(error => {
