@@ -81,15 +81,7 @@ const Headerbar = () => {
                           <ul className="problem-list">
                             <li>
                               <Link to="/codeproblemlist" className="list-text">
-                                Code
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="/selectproblemlist"
-                                className="list-text"
-                              >
-                                Select
+                                코딩테스트
                               </Link>
                             </li>
                             <li>
@@ -97,7 +89,20 @@ const Headerbar = () => {
                                 to="/blankproblemlist"
                                 className="list-text"
                               >
-                                Blank
+                                빈칸 문제
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/mcqlist"
+                                className="list-text"
+                              >
+                                객관식 문제
+                              </Link>
+                            </li>
+                            <li>
+                            <Link to="/oxQuizList" className="list-text">
+                                O/X 퀴즈
                               </Link>
                             </li>
                           </ul>
