@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import './MCQDetail.css';
+import tino from "./tino2.png";
 
 const MCQDetail = () => {
     const [mcq, setMcq] = useState(null);
@@ -47,7 +48,11 @@ const MCQDetail = () => {
     }
 
     return (
+
         <div className="mcq-detail-container">
+            <div className="tino-image">
+        <img src={tino} alt="Tino" className="quiz-tino" />
+      </div>
             <h2>{mcq.question_text}</h2>
             <div className='mcq-details'>
             {mcq.options.map(option => (
@@ -69,7 +74,9 @@ const MCQDetail = () => {
             {isCorrect !== null && (
                 <p>{isCorrect ? 'Correct!' : 'Incorrect. Try again.'}</p>
             )}
-            <Link to="/mcqlist">Back to List</Link>
+            <div className='next-btn'>
+                <Link to="/mcqlist">Back to List</Link>
+            </div>
         </div>
     );
 };
