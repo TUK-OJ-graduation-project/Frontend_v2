@@ -4,9 +4,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;  /* Adjusted for more width */
-  max-width: 400px;
+  max-width: 600px;
   height: 50%;
-  max-height: 600px;
+  max-height: 650px;
   background-color: #303666;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   z-index: 999;
