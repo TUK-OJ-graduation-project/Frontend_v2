@@ -9,7 +9,7 @@ function QuizPage() {
   const [userAnswers, setUserAnswers] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
   const [feedback, setFeedback] = useState("");
-  
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -18,19 +18,19 @@ function QuizPage() {
 
   const fetchProblemById = (problemId) => {
     axios
-      .get(`http://127.0.0.1:8000/api/v2/ox/${problemId}/`)  // Updated URL
-      .then(response => {
+      .get(`http://127.0.0.1:8000/api/v2/ox/${problemId}/`) // Updated URL
+      .then((response) => {
         setProblemData(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
   const handleAnswerSubmit = (answer) => {
     const correct = answer === problemData.is_correct;
     setIsCorrect(correct);
-    setUserAnswers(prevAnswers => [...prevAnswers, correct]);
+    setUserAnswers((prevAnswers) => [...prevAnswers, correct]);
     setFeedback(correct ? "정답입니다!" : "틀렸습니다.");
   };
 
@@ -50,36 +50,31 @@ function QuizPage() {
   };
 
   return (
-    <div>
+    <div className="quiz-container">
       <div className="tino-image">
         <img src={tino} alt="Tino" className="quiz-tino" />
       </div>
-      <div className="quiz-container">
-        <div className="qzproblem-container">
-          {problemData.title && (
-            <div key={problemData.id}>
-              <p className="qzproblem-container2">{problemData.title}</p>
-              <p className="qzproblem-container2">{problemData.description}</p>
-            </div>
-          )}
-        </div>
-        <div className="answer-container">
-          <button
-            className="answer-btn"
-            onClick={() => handleAnswerSubmit(true)}
-          >
-            O
-          </button>
-          <button
-            className="answer-btn"
-            onClick={() => handleAnswerSubmit(false)}
-          >
-            X
-          </button>
-        </div>
-        <p className="feedback">{feedback}</p>
-        {renderNextButton()}
+      <div className="qzproblem-container">
+        {problemData.title && (
+          <div key={problemData.id}>
+            <p className="qzproblem-container2">{problemData.title}</p>
+            <p className="qzproblem-container2">{problemData.description}</p>
+          </div>
+        )}
       </div>
+      <div className="answer-container">
+        <button className="answer-btn" onClick={() => handleAnswerSubmit(true)}>
+          O
+        </button>
+        <button
+          className="answer-btn"
+          onClick={() => handleAnswerSubmit(false)}
+        >
+          X
+        </button>
+      </div>
+      <p className="feedback">{feedback}</p>
+      {renderNextButton()}
     </div>
   );
 }

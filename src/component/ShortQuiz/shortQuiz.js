@@ -26,7 +26,7 @@ function ShortQuizPage() {
   const handleAnswerSubmit = () => {
     axios
       .post(`http://127.0.0.1:8000/api/v2/blank/check-answer/${id}/`, {
-        answer: inputValue.trim()
+        answer: inputValue.trim(),
       })
       .then(function (response) {
         if (response.data.correct) {
@@ -42,9 +42,9 @@ function ShortQuizPage() {
       .catch((error) => {
         console.error("Error while checking answer:", error);
         if (error.response) {
-          console.error('Data:', error.response.data);
-          console.error('Status:', error.response.status);
-          console.error('Headers:', error.response.headers);
+          console.error("Data:", error.response.data);
+          console.error("Status:", error.response.status);
+          console.error("Headers:", error.response.headers);
         }
       });
   };
@@ -65,35 +65,34 @@ function ShortQuizPage() {
   };
 
   return (
-    <div>
+    <div className="quiz-container">
       <div className="tino-image">
         <img src={tino} className="quiz-tino" alt="Tino" />
       </div>
-      <div className="quiz-container">
-        <div className="qzproblem-container">
-          {problemData && Object.keys(problemData).length > 0 && (
-            <div key={problemData.id}>
-              <p className="qzproblem-container2">{problemData.title}</p>
-              <p className="qzproblem-container2">{problemData.description}</p>
-            </div>
-          )}
-          <input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-        </div>
-        <div className="answer-container">
-          <button className="answer-btn" onClick={handleAnswerSubmit}>
-            Submit
-          </button>
-        </div>
-        <p className="feedback">{feedback}</p>
-        {feedback === "정답입니다" && (
-          <button className="next-btn" onClick={loadNextProblem}>
-            다음
-          </button>
+      <div className="qzproblem-container">
+        {problemData && Object.keys(problemData).length > 0 && (
+          <div key={problemData.id}>
+            <p className="qzproblem-container2">{problemData.title}</p>
+            <p className="qzproblem-container2">{problemData.description}</p>
+          </div>
         )}
+        <input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
       </div>
+      <div className="answer-container">
+        <button className="answer-btn" onClick={handleAnswerSubmit}>
+          Submit
+        </button>
+      </div>
+      <p className="feedback">{feedback}</p>
+      {feedback === "정답입니다" && (
+        <button className="next-btn" onClick={loadNextProblem}>
+          다음
+        </button>
+      )}
+
       <div></div>
     </div>
   );
