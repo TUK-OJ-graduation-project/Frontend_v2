@@ -72,7 +72,7 @@ const MCQDetail = () => {
 
             <button onClick={handleSubmit}>Submit</button>
             {isCorrect !== null && (
-                <p>{isCorrect ? 'Correct!' : 'Incorrect. Try again.'}</p>
+                <p>{isCorrect ? '정답입니다!' : '틀렸습니다. 다시 풀어보세요.'}</p>
             )}
             <div className='next-btn'>
                 <Link to="/mcqlist">Back to List</Link>

@@ -7,6 +7,7 @@ import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-monokai";
 import { useParams } from "react-router-dom";
 import { FaRegLightbulb } from "react-icons/fa";
+import Modal from "react-modal";
 
 const Layout = styled.div`
   flex-direction: row;
@@ -22,8 +23,23 @@ const SourceCodeContainer = styled.div`
   flex: 3;
 `;
 
+function Header({ problemData, showHintModal }) {
+  return (
+    <div className="editor-header">
+      <div className="header-left">
+        <span className="problem-level">{problemData.level}</span>
+        <span className="problem-title">{problemData.title}</span>
+      </div>
+      <div className="header-right">
+        <button onClick={showHintModal} className="hint-button">
+          <FaRegLightbulb /> Hint
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function ProblemInfoComponent({ problemId }) {
-  console.log("Problem Id:", problemId);
   const [problemData, setProblemData] = useState({});
 
   useEffect(() => {
@@ -43,7 +59,7 @@ function ProblemInfoComponent({ problemId }) {
     <div>
       <div key={problemData.id}>
         <div className="description-container">
-          <p className="description-text"> {problemData.title} </p>
+          {/* <p className="description-text"> {problemData.title} </p> */}
           <p className="description-text"> {problemData.description}</p>
         </div>
         <div className="io-container">
@@ -79,7 +95,7 @@ function SourceCodeInputComponent({
         editorProps={{ $blockScrolling: true }}
         height="500px"
         width="100%"
-        fontSize={12}
+        fontSize={16}
       />
     </div>
   );
@@ -108,11 +124,26 @@ function Editor() {
   const { id } = useParams();
   const problemId = id;
 
+  const [problemData, setProblemData] = useState({});
   const [executionResult, setExecutionResult] = useState(null);
   const [sourceCode, setSourceCode] = useState(
     "def solution(x):\n\t# Write your code here\n\treturn y"
   );
   const [testCases, setTestCases] = useState([]);
+  const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+    if (problemId !== undefined) {
+      axios
+        .get(`http://localhost:8000/api/v2/problems/${problemId}/`)
+        .then((response) => {
+          setProblemData(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [problemId]);
 
   function handleSourceCodeChange(value) {
     setSourceCode(value);
@@ -121,28 +152,22 @@ function Editor() {
   function handleSourceCodeSubmit() {
     axios
       .post("http://localhost:8000/api/v2/submissions/", {
-        user: 1, // replace with the actual user id
+        user: 1,
         problem: problemId,
         language: "PY",
         code: sourceCode,
       })
       .then((response) => {
-        console.log(JSON.stringify(response.data, null, 2));
         if (
           response.data &&
           response.data.grading_results &&
           response.data.grading_results.body &&
           Array.isArray(response.data.grading_results.body.test_cases)
         ) {
-          console.log(response.data.grading_results.body.test_cases);
           setTestCases(response.data.grading_results.body.test_cases);
         } else {
-          console.warn("Unexpected response structure", response.data);
           setTestCases([]);
         }
-        console.log("Response", response);
-        console.log("Execution result:", response.data.result);
-        alert("Source code submitted successfully!");
         if (response.data.result === "P") {
           setExecutionResult("🎉🎊정답입니다🎊🎉");
         } else if (response.data.result === "F") {
@@ -155,12 +180,29 @@ function Editor() {
       })
       .catch((error) => {
         console.error(error.response);
-        alert("An error occurred while submitting the source code.");
       });
+  }
+
+  function showHintModal() {
+    setShowHint(true);
+  }
+
+  function closeHintModal() {
+    setShowHint(false);
   }
 
   return (
     <div className="online-judge-layout">
+      <div className="editor-header">
+        <div className="editor-header-wrapper">
+          <div className="editor-header-container1">
+            {problemData.level} &nbsp;&nbsp;&gt;&nbsp;&nbsp; &nbsp;{problemData.title}
+          </div>
+          <button className="hint-button" onClick={showHintModal}>
+            힌트
+          </button>
+        </div>
+      </div>
       <Layout className="editor_container">
         <div className="problem_info_container">
           <ProblemInfoComponent problemId={problemId} />
@@ -191,6 +233,13 @@ function Editor() {
           </button>
         </div>
       </div>
+      {showHint && (
+        <div className="hint-modal">
+          <h2>Hint</h2>
+          <p>{problemData.hint}</p>
+          <button onClick={closeHintModal}>Close</button>
+        </div>
+      )}
     </div>
   );
 }

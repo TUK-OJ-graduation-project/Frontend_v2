@@ -9,6 +9,7 @@
   color: #000;
   margin: 10px;
   font-weight: bold;
+  font-size: 18pt;
 }
 .io-container{
   display: flex;
@@ -130,12 +131,16 @@ pre{
   color: #000;
   background-color: #D9D9D9;
   border-radius: 10px;
-  width: 380px;
+  min-width: 100px;  /* This sets the minimum width. You can adjust as needed */
+  max-width: 500px;  /* This sets the maximum width. You can adjust as needed */
   height: 29px;
   padding-left: 10px;
+  padding-right: 10px;  /* Add right padding to ensure the content doesn't touch the edge */
   padding-top: 2px;
   font-weight: bold;
+  display: inline-block; /* This makes sure the width adjusts to content, but still respects min-width and max-width */
 }
+
 .hint-button {
   width: 80px;
   height: 40px;
