@@ -1,32 +1,18 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
+import React from "react";
+import { useNavigate } from "react-router";
 
-const CommonTableRow = ({ children, problemType }) => {
+const CommonTableRow = ({ children, id }) => {
   const navigator = useNavigate();
-  const test = (id) => {
-     switch (problemType) {
-        case 'code':
-           navigator(`/problem/${id}`);
-           break;
-        case 'blank':
-           navigator(`/shortquiz/${id}`);
-           break;
-        case 'select':
-           navigator(`/oxquiz/${id}`);
-           break;
-        default:
-           console.error("Invalid problem type");
-           break;
-     }
-  };
-  return (
-    <tr className="common-table-row" onClick = {() => test(children[0].props.children)}>
-      {
-        children
-      }
-    </tr>
-  )
-}
 
+  const handleRowClick = () => {
+    navigator(`/post/${id}`);
+  };
+
+  return (
+    <tr className="common-table-row" onClick={handleRowClick}>
+      {children}
+    </tr>
+  );
+};
 
 export default CommonTableRow;

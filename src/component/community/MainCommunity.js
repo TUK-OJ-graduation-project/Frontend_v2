@@ -1,3 +1,4 @@
+// 메인 qna 페이지
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, Route, Routes, useParams, Link } from "react-router-dom";
@@ -77,15 +78,25 @@ function MainCommunity(props) {
             navigate("/post-write");
           }}
         />
-         <PostList
-              posts={slicedQnaData}
-              onClickItem={(item) => {
-                navigate(`/post/${item.id}`, { state: item });
-              }}
-            />
+        {/* 목록 */}
+        <div
+          style={{
+            backgroundColor: "lightgrey",
+            borderRadius: 20,
+            width: "100%",
+            marginRight: "32px",
+            border: "1px solid grey",
+          }}
+        >
+          <PostList
+            posts={slicedQnaData}
+            onClickItem={(item) => {
+              navigate(`/post/${item.id}`, { state: item });
+            }}
+          />
+        </div>
       </Container>
-           
-       
+
       <div>
         <Pagination
           total={qnaData.length}
@@ -93,10 +104,8 @@ function MainCommunity(props) {
           page={page}
           setPage={setPage}
         />
-        </div>
-      
+      </div>
     </Wrapper>
-    
   );
 }
 
