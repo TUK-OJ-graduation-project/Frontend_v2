@@ -37,14 +37,14 @@ const OX = () => {
       const url = "http://127.0.0.1:8000/api/v2/ox/list/";
       try {
         const response = await axios.get(url);
-        setDataList(response.data);
+        setDataList(response.data.reverse());
       } catch (error) {
         console.error("Error fetching data from API:", error.response);
       }
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   const sortedData = [...dataList].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   const slicedData = sortedData.slice(offset, offset + limit);
@@ -53,7 +53,7 @@ const OX = () => {
     <Wrapper>
       <Container>
         <h1 style={{ color: "grey", marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
-          PROBLEM LIST
+          O/X 퀴즈 LIST
         </h1>
         <div
           style={{
@@ -62,7 +62,7 @@ const OX = () => {
             borderRadius: 10,
           }}
         >
-          <CommonTable headersName={["#", "문제명"]}>
+          <CommonTable headersName={["Problem No.", "Title"]}>
             {slicedData.map((problem, index) => (
               <CommonTableRow key={problem.id}>
                 <CommonTableColumn>{offset + index + 1}</CommonTableColumn>

@@ -37,7 +37,7 @@ const Blank = () => {
        const url = `http://127.0.0.1:8000/api/v2/blank/`;
        try {
          const response = await axios.get(url);
-         setDataList(response.data);
+         setDataList(response.data.reverse());
        } catch (error) {
          console.log(error);
        }
@@ -58,14 +58,14 @@ const Blank = () => {
              fontSize: 30, 
              fontWeight: "bold" 
          }}>
-           PROBLEM LIST
+           빈칸 문제 LIST
          </h1>
          <div style={{
              background: "#000066",
              marginTop: "100px",
              borderRadius: 10
            }}>
-           <CommonTable headersName={["Problem No", "Question Name"]}>
+           <CommonTable headersName={["Problem No.", "Title"]}>
              {slicedData.map((problem, index) => (
                <CommonTableRow key={problem.id}>
                  {/* Display the problem number based on the index */}

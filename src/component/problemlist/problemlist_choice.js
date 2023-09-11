@@ -44,7 +44,7 @@ const MCQList = () => {
       };
  
       fetchData();
-    }, []);
+    }, [page]);
  
     const slicedData = dataList.slice(offset, offset + limit);
  
@@ -52,7 +52,7 @@ const MCQList = () => {
       <Wrapper>
         <Container>
           <h1 style={{ color: "grey", marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
-            MCQ-PROBLEM LIST
+            객관식 문제 LIST
           </h1>
           <div
             style={{

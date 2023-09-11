@@ -37,14 +37,14 @@ const ProblemList = () => {
        const url = "http://localhost:8000/api/v2/problems/";
        try {
          const response = await axios.get(url);
-         setDataList(response.data);
+         setDataList(response.data.reverse());
        } catch (error) {
          console.log(error);
        }
      };
 
      fetchData();
-   }, []);
+   }, [page]);
 
    const filteredData = dataList.filter((problemItem) => problemItem.language === "PY");
    const slicedData = filteredData.slice(offset, offset + limit);
@@ -53,7 +53,7 @@ const ProblemList = () => {
      <Wrapper>
        <Container>
          <h1 style={{ color: "grey", marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
-           CODE-PROBLEM LIST
+           코딩 문제 LIST
          </h1>
          <div
            style={{
@@ -62,13 +62,13 @@ const ProblemList = () => {
              borderRadius: 10,
            }}
          >
-           <CommonTable headersName={["문제 이름", "등록일"]}>
-             {slicedData.map((problem) => (
+           <CommonTable headersName={["Problem No.", "Title"]}>
+             {slicedData.map((problem, index) => (
                <CommonTableRow key={problem.id}>
+                 <CommonTableColumn>{offset + index + 1}</CommonTableColumn>
                  <CommonTableColumn>
                    <Link to={`/editor/${problem.id}`}>{problem.title}</Link>
                  </CommonTableColumn>
-                 <CommonTableColumn>{problem.created_at}</CommonTableColumn>
                </CommonTableRow>
              ))}
            </CommonTable>

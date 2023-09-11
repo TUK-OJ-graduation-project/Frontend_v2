@@ -17,7 +17,7 @@ const MCQDetail = () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/v2/mcq/${id}/`);
                 console.log("Fetched data:", response.data);
-                setMcq(response.data[0]);
+                setMcq(response.data);
                 setLoading(false);
             } catch (err) {
                 setError(err);

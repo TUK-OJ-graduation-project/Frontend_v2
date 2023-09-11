@@ -168,6 +168,7 @@ function Editor() {
         } else {
           setTestCases([]);
         }
+        alert("소스코드가 성공적으로 제출되었습니다!");
         if (response.data.result === "P") {
           setExecutionResult("🎉🎊정답입니다🎊🎉");
         } else if (response.data.result === "F") {
